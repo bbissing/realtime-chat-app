@@ -1,20 +1,47 @@
 'use client'
 
-import { cn } from '@/lib/utils'
+import { pusherClient } from '@/lib/pusher'
+import { cn, toPusherKey } from '@/lib/utils'
 import { Message } from '@/lib/validations/message'
 import { format } from 'date-fns'
 import Image from 'next/image'
-import { FC, useRef, useState } from 'react'
+import { FC, useEffect, useRef, useState } from 'react'
 
 interface MessagesProps {
   initialMessages: Message[]
   sessionId: string
+  chatId: string
   sessionImg: string | null | undefined
   chatPartner: User
 }
 
-const Messages: FC<MessagesProps> = ({ initialMessages, sessionId, sessionImg, chatPartner }) => {
+const Messages: FC<MessagesProps> = ({
+  initialMessages,
+  sessionId,
+  chatId,
+  sessionImg,
+  chatPartner
+}) => {
   const [messages, setMessages] = useState<Message[]>(initialMessages)
+
+  useEffect(() => {
+    pusherClient.subscribe(
+      toPusherKey(`chat:${chatId}`)
+    )
+
+    const messageHandler = (message: Message) => {
+      setMessages((prev) => [message, ...prev])
+    }
+
+    pusherClient.bind('incoming-message', messageHandler)
+
+    return () => {
+      pusherClient.unsubscribe(toPusherKey(`chat:${chatId}`))
+      pusherClient.unbind('incoming-message', messageHandler)
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   const scrollDownRef = useRef<HTMLDivElement | null>(null)
 
   const formatTimestamp = (timestamp: number) => {
@@ -29,10 +56,7 @@ const Messages: FC<MessagesProps> = ({ initialMessages, sessionId, sessionImg, c
 
       {messages.map((message, index) => {
         const isCurrentUser = message.senderId === sessionId
-
         const hasNextMessageFromSameUser = messages[index - 1]?.senderId === messages[index].senderId
-        // console.log('messages[index - 1]?.senderId', messages[index - 1]?.senderId)
-        // console.log('hasNextMessage', hasNextMessageFromSameUser)
 
         return (
           <div

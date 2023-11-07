@@ -8,6 +8,14 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      container: {
+        center: true,
+        padding: '1.5rem',
+        screens: {
+          '2xl': '1360px'
+        }
+      },
+      // we may not need this extension
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic':

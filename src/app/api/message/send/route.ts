@@ -1,6 +1,8 @@
 import { fetchRedis } from "@/app/helpers/redis"
 import { authOptions } from "@/lib/auth"
 import { db } from "@/lib/db"
+import { pusherServer } from "@/lib/pusher"
+import { toPusherKey } from "@/lib/utils"
 import { Message, messageValidator } from "@/lib/validations/message"
 import { nanoid } from "nanoid"
 import { getServerSession } from "next-auth"
@@ -30,7 +32,6 @@ export async function POST(req: Request) {
     const rawSender = await fetchRedis('get', `user:${session.user.id}`) as string
     const sender = JSON.parse(rawSender) as User
 
-    // all valid, send the message
     const timestamp = Date.now()
 
     const messageData: Message = {
@@ -40,9 +41,19 @@ export async function POST(req: Request) {
       timestamp
     }
 
-    //this isn't truly necessary, unless you want to limit the number of characaters for a text message
+    // this isn't truly necessary, unless you want to limit the number of characaters for a text message
     const message = messageValidator.parse(messageData)
 
+    // notify all connected chat room clients
+    pusherServer.trigger(toPusherKey(`chat:${chatId}`), 'incoming-message', message)
+
+    pusherServer.trigger(toPusherKey(`user:${friendId}:chats`), 'new_message', {
+      ...message,
+      senderImg: sender.image,
+      senderName: sender.name
+    })
+
+    // all valid, send the message
     await db.zadd(`chat:${chatId}:messages`, {
       score: timestamp,
       member: JSON.stringify(message)
