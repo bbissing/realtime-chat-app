@@ -39,8 +39,7 @@ const Messages: FC<MessagesProps> = ({
       pusherClient.unsubscribe(toPusherKey(`chat:${chatId}`))
       pusherClient.unbind('incoming-message', messageHandler)
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [chatId])
 
   const scrollDownRef = useRef<HTMLDivElement | null>(null)
 
