@@ -59,8 +59,6 @@ const FriendRequests: FC<FriendRequestsProps> = ({
     router.refresh()
   }
 
-  // console.log('friend requests: ', friendRequests.length);
-
   return (
     <>
       {friendRequests.length === 0 ? (
