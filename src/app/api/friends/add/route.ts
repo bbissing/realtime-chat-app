@@ -15,6 +15,8 @@ export async function POST(req: Request) {
 
     // const idToAdd = await fetchRedis('get', `user:email:${emailToAdd}`) as string
 
+    console.log('Authorization: ', process.env.UPSTASH_REDIS_REST_TOKEN);
+
     const RESTResponse = await fetch(
       `${process.env.UPSTASH_REDIS_REST_URL}/get/user:email:${emailToAdd}`,
       {
