@@ -14,7 +14,7 @@ export async function POST(req: Request) {
     const { email: emailToAdd } = addFriendValidator.parse(body.email)
 
     // const idToAdd = await fetchRedis('get', `user:email:${emailToAdd}`) as string
-
+    console.log('Redis URL: ', process.env.UPSTASH_REDIS_REST_URL);
     console.log('Authorization: ', process.env.UPSTASH_REDIS_REST_TOKEN);
 
     const RESTResponse = await fetch(
@@ -27,9 +27,13 @@ export async function POST(req: Request) {
       }
     )
 
+    console.log('RESTRespons: ', RESTResponse);
+
     const data = (await RESTResponse.json()) as { result: string | null }
 
     const idToAdd = data.result
+
+    console.log('idToAdd: ', idToAdd);
 
     if (!idToAdd) {
       return new Response('This person does not exist.', { status: 400 })
