@@ -18,26 +18,21 @@ export async function POST(req: Request) {
     console.log('Redis URL: ', process.env.UPSTASH_REDIS_REST_URL);
     console.log('Authorization: ', process.env.UPSTASH_REDIS_REST_TOKEN);
 
-    // const RESTResponse = await fetch(
-    //   `${process.env.UPSTASH_REDIS_REST_URL}/get/user:email:${emailToAdd}`,
-    //   {
-    //     headers: {
-    //       Authorization: `Bearer ${process.env.UPSTASH_REDIS_REST_TOKEN}`
-    //     },
-    //     cache: 'no-store'
-    //   }
-    // )
+    const RESTResponse = await fetch(
+      `${process.env.UPSTASH_REDIS_REST_URL}/get/user:email:${emailToAdd}`,
+      {
+        headers: {
+          Authorization: `Bearer ${process.env.UPSTASH_REDIS_REST_TOKEN}`
+        },
+        cache: 'no-store'
+      }
+    )
 
-    // console.log('RESTRespons: ', RESTResponse);
+    console.log('RESTRespons: ', RESTResponse);
 
-    // const data = (await RESTResponse.json()) as { result: string | null }
+    const data = (await RESTResponse.json()) as { result: string | null }
 
-    // const idToAdd = data.result
-
-    const idToAdd = (await fetchRedis(
-      'get',
-      `user:email:${emailToAdd}`
-    )) as string
+    const idToAdd = data.result
 
     console.log('idToAdd: ', idToAdd);
 
@@ -86,16 +81,14 @@ export async function POST(req: Request) {
 
     //valid request, send friend request
 
-    console.log('pusherServer:', pusherServer)
-
-    await pusherServer.trigger(
-      toPusherKey(`user:${idToAdd}:incoming_friend_requests`),
-      'incoming_friend_requests',
-      {
-        senderId: session.user.id,
-        senderEmail: session.user.email
-      }
-    )
+    // await pusherServer.trigger(
+    //   toPusherKey(`user:${idToAdd}:incoming_friend_requests`),
+    //   'incoming_friend_requests',
+    //   {
+    //     senderId: session.user.id,
+    //     senderEmail: session.user.email
+    //   }
+    // )
 
     await db.sadd(`user:${idToAdd}:incoming_friend_requests`, session.user.id)
 
