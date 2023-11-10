@@ -59,6 +59,8 @@ export async function POST(req: Request) {
       session.user.id
     )) as 0 | 1
 
+    console.log('isAlreadyFriends: ', isAlreadyAdded);
+
     if(isAlreadyAdded) {
       return new Response('Already added this user', { status: 400 })
     }
@@ -69,7 +71,7 @@ export async function POST(req: Request) {
       idToAdd
     )) as 0 | 1
 
-    console.log('isAlreadyFriends:')
+    console.log('isAlreadyFriends: ', isAlreadyFriends);
 
     if(isAlreadyFriends) {
       return new Response('Already friends with this user', { status: 400 })
