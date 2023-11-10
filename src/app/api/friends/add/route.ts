@@ -83,7 +83,7 @@ export async function POST(req: Request) {
       }
     )
 
-    await db.sadd(`user:${idToAdd}:incoming_friend_requests`, session.user.id)
+    db.sadd(`user:${idToAdd}:incoming_friend_requests`, session.user.id)
 
     return new Response('OK')
   } catch (error) {
