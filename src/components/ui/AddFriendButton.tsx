@@ -47,6 +47,8 @@ const AddFriendButton: FC<AddFriendButtonProps> = ({}) => {
     addFriend(data.email)
   }
 
+  console.log('showSuccessState: ', showSuccessState);
+
   return (
     <form onSubmit={handleSubmit(onSubmit)} className='max-w-sm'>
       <label
