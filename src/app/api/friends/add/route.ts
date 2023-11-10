@@ -18,21 +18,26 @@ export async function POST(req: Request) {
     console.log('Redis URL: ', process.env.UPSTASH_REDIS_REST_URL);
     console.log('Authorization: ', process.env.UPSTASH_REDIS_REST_TOKEN);
 
-    const RESTResponse = await fetch(
-      `${process.env.UPSTASH_REDIS_REST_URL}/get/user:email:${emailToAdd}`,
-      {
-        headers: {
-          Authorization: `Bearer ${process.env.UPSTASH_REDIS_REST_TOKEN}`
-        },
-        cache: 'no-store'
-      }
-    )
+    // const RESTResponse = await fetch(
+    //   `${process.env.UPSTASH_REDIS_REST_URL}/get/user:email:${emailToAdd}`,
+    //   {
+    //     headers: {
+    //       Authorization: `Bearer ${process.env.UPSTASH_REDIS_REST_TOKEN}`
+    //     },
+    //     cache: 'no-store'
+    //   }
+    // )
 
-    console.log('RESTRespons: ', RESTResponse);
+    // console.log('RESTRespons: ', RESTResponse);
 
-    const data = (await RESTResponse.json()) as { result: string | null }
+    // const data = (await RESTResponse.json()) as { result: string | null }
 
-    const idToAdd = data.result
+    // const idToAdd = data.result
+
+    const idToAdd = (await fetchRedis(
+      'get',
+      `user:email:${emailToAdd}`
+    )) as string
 
     console.log('idToAdd: ', idToAdd);
 
