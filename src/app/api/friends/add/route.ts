@@ -14,6 +14,7 @@ export async function POST(req: Request) {
     const { email: emailToAdd } = addFriendValidator.parse(body.email)
 
     // const idToAdd = await fetchRedis('get', `user:email:${emailToAdd}`) as string
+    console.log('emailToAdd: ', emailToAdd);
     console.log('Redis URL: ', process.env.UPSTASH_REDIS_REST_URL);
     console.log('Authorization: ', process.env.UPSTASH_REDIS_REST_TOKEN);
 
@@ -68,6 +69,8 @@ export async function POST(req: Request) {
       idToAdd
     )) as 0 | 1
 
+    console.log('isAlreadyFriends:')
+
     if(isAlreadyFriends) {
       return new Response('Already friends with this user', { status: 400 })
     }
@@ -83,7 +86,7 @@ export async function POST(req: Request) {
       }
     )
 
-    db.sadd(`user:${idToAdd}:incoming_friend_requests`, session.user.id)
+    await db.sadd(`user:${idToAdd}:incoming_friend_requests`, session.user.id)
 
     return new Response('OK')
   } catch (error) {
