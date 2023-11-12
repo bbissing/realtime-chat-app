@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   title: 'Realtime-Chat-App',
   description: 'Chat in real time with your friends',
   icons: {
-    icon: '/favicon.ico'
+    icon: '/favicon.ico?v=M44lzPylqQ'
   }
 }
 
