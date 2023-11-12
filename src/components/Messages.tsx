@@ -65,7 +65,7 @@ const Messages: FC<MessagesProps> = ({
             className={cn('flex items-end', {
               'justify-end': isCurrentUser
             })}>
-              <div className={cn('flex flex-col space-y-2 text-base max-w-xs mx-2', {
+              <div className={cn('flex flex-col space-y-2 text-base max-w-s mx-2', {
                 'order-1 items-end': isCurrentUser,
                 'order-2 items-start': !isCurrentUser
               })}>
