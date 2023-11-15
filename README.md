@@ -1,36 +1,72 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Realtime Chat App
+## [Website](https://realtime-chat-app-eight-ecru.vercel.app/dashboard)
 
-## Getting Started
+Realtime Chat App is a communication-based application that utilizes Redis' in-memory data storage for fast delivery and Pusher for realtime notifications (e.g. friend requests, new messages).
+As of now, a user needs to have a Google account to use the application.
 
-First, run the development server:
+## Demo:
+https://github.com/bbissing/realtime-chat-app/assets/51722944/b5938915-f824-4b65-88dd-8c645ca96dfc
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Tech Stack:
+<table>
+  <tr>
+    <td><b>Frontend</b></td>
+    <td>React - Next.JS</td>
+    <td>TypeScript</td>
+    <td>Tailwind</td>
+    <td>HTML</td>
+    <td>Axios</td>
+    <td>Pusher</td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><b>Backend</b></td>
+    <td>Redis</td>
+    <td>Upstash</td>
+    <td>Pusher</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><b>APIs</b></td>
+    <td>Upstash</td>
+    <td>Pusher</td>
+    <td>Google OAuth</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><b>Dev Tools</b></td>
+    <td>Webpack</td>
+    <td>Zod</td>
+    <td>VS Code</td>
+    <td>Axios</td>
+    <td>Pusher</td>
+    <td>Lucide-React</td>
+    <td>Next-Auth</td>
+    <td>JWT</td>
+    <td>Git/Github</td>
+   </tr>
+  <tr>
+    <td><b>Deployment</b></td>
+    <td>Vercel</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+</table>
